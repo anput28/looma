@@ -14,7 +14,9 @@ import com.anput.personalfinance.ui.screens.incomes.IncomesScreen
 import com.anput.personalfinance.ui.screens.investments.InvestmentsScreen
 import com.anput.personalfinance.ui.screens.monthlyreport.MonthlyReportScreen
 import com.anput.personalfinance.ui.theme.PersonalFinanceTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

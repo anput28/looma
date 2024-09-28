@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
@@ -12,22 +13,22 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import java.util.Calendar
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssetForecastsScreen(
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    assetForecastsViewModel: AssetForecastsViewModel = hiltViewModel()
 ) {
-
-    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-    val years = (currentYear..currentYear + 9).toList()
+    val uiState by assetForecastsViewModel.uiStateFlow.collectAsState()
 
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
@@ -45,7 +46,7 @@ fun AssetForecastsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     selectedTabIndex = selectedTabIndex
                 ) {
-                    years.forEachIndexed { index, year  ->
+                    uiState.years.forEachIndexed { index, year  ->
                         Tab(
                             selected = selectedTabIndex == index,
                             onClick = { selectedTabIndex = index },
