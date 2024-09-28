@@ -12,13 +12,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
-import com.anput.personalfinance.MonthlyReport
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AssetForecastsScreen() {
-    val navController = rememberNavController()
+fun AssetForecastsScreen(
+    onClick: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("PREVISIONI PATRIMONIO") })
@@ -29,7 +28,7 @@ fun AssetForecastsScreen() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Button(onClick = { navController.navigate(MonthlyReport.route) }) {
+                Button(onClick = onClick) {
                     Text("Go to Monthly Report")
                 }
             }

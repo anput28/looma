@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
 fun PersonalFinanceApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AssetForecasts.route) {
-        composable(route = AssetForecasts.route) { AssetForecastsScreen() }
+        composable(route = AssetForecasts.route) { AssetForecastsScreen(onClick = { navController.navigate(MonthlyReport.route) }) }
         composable(route = MonthlyReport.route) { MonthlyReportScreen() }
         composable(route = Incomes.route) { IncomesScreen() }
         composable(route = Investments.route) { InvestmentsScreen() }
