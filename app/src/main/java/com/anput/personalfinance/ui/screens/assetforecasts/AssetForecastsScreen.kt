@@ -13,6 +13,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -32,6 +33,10 @@ fun AssetForecastsScreen(
 
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
+    LaunchedEffect(Unit) {
+        assetForecastsViewModel.getAllMonthlyReports(uiState.years[selectedTabIndex])
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("PREVISIONI PATRIMONIO") })
@@ -49,9 +54,23 @@ fun AssetForecastsScreen(
                     uiState.years.forEachIndexed { index, year  ->
                         Tab(
                             selected = selectedTabIndex == index,
-                            onClick = { selectedTabIndex = index },
+                            onClick = {
+                                selectedTabIndex = index
+                                assetForecastsViewModel.getAllMonthlyReports(uiState.years[selectedTabIndex])
+                            },
                             text = { Text("$year") }
                         )
+                    }
+                }
+
+                uiState.monthlyReports.forEach { monthlyReport ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Column {
+                            Text(text =  "${monthlyReport.actualBalance}")
+                            Text(text =  "${monthlyReport.plannedBalance}")
+                        }
                     }
                 }
             }
