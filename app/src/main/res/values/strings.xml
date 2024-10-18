@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">PersonalFinance</string>
+    <string name="asset_forecasts_title">Previsioni Patrimonio</string>
+    <string name="january">Gennaio</string>
+    <string name="february">Febbraio</string>
+    <string name="march">Marzo</string>
+    <string name="april">Aprile</string>
+    <string name="may">Maggio</string>
+    <string name="june">Giugno</string>
+    <string name="july">Luglio</string>
+    <string name="august">Agosto</string>
+    <string name="september">Settembre</string>
+    <string name="october">Ottobre</string>
+    <string name="november">Novembre</string>
+    <string name="december">Dicembre</string>
+    <string name="expand">Espandi</string>
 </resources>

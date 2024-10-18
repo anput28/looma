@@ -1,6 +1,5 @@
 package com.anput.personalfinance.data.repositories
 
-import android.util.Log
 import com.anput.personalfinance.data.models.MonthlyReport
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.channels.awaitClose
