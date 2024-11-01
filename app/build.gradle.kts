@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.anput.personalfinance"
+    namespace = "me.looma"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.anput.personalfinance"
+        applicationId = "me.looma"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
