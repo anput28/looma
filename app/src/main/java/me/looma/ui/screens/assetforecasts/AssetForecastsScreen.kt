@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.looma.R
-import me.looma.data.models.MonthlyReport
 import me.looma.data.utils.getMonthName
 import me.looma.ui.DataState
 
@@ -56,7 +55,10 @@ fun AssetForecastsScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(stringResource(R.string.asset_forecasts_title)) })
+            TopAppBar(
+                modifier = Modifier.padding(start = 16.dp),
+                title = { Text(stringResource(R.string.asset_forecasts_title)) }
+            )
         },
         content = { innerPadding ->
             Column(
@@ -81,7 +83,15 @@ fun AssetForecastsScreen(
                 }
 
                 when (val state = uiState.monthlyReportsState) {
-                    is DataState.Loading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                    is DataState.Loading -> {
+                        Column(
+                            modifier=Modifier.fillMaxSize().padding(32.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                        }
+                    }
 
                     is DataState.Error -> NoData()
 
@@ -103,7 +113,8 @@ fun AssetForecastsScreen(
                                             Row(
                                                 modifier = Modifier.fillMaxWidth(),
                                                 horizontalArrangement = Arrangement.SpaceBetween,
-                                                verticalAlignment = Alignment.CenterVertically
+                                                verticalAlignment = Alignment.Top
+
                                             ) {
                                                 Text(text = getMonthName(monthlyReport.month))
                                                 Button(onClick = {}) { Text(stringResource(R.string.expand)) }
