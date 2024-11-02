@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Looma</string>
-    <string name="asset_forecasts_title">Previsioni Patrimonio</string>
+    <string name="asset_forecasts">Previsioni Patrimonio</string>
+    <string name="asset">Patrimonio</string>
+    <string name="forecasts">Previsioni</string>
     <string name="no_data">Non ci sono previsioni</string>
     <string name="january">Gennaio</string>
     <string name="february">Febbraio</string>
@@ -16,4 +18,5 @@
     <string name="december">Dicembre</string>
     <string name="expand">Espandi</string>
     <string name="back">Indietro</string>
+    <string name="saving">Risparmio</string>
 </resources>

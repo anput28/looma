@@ -11,6 +11,8 @@ class BalanceReportsRepository {
     private val _firestore = FirebaseFirestore.getInstance()
     private val _balanceReportsCollection = _firestore.collection("balance_reports")
 
+    var monthlyReports: List<MonthlyReport> = emptyList()
+
     fun getAllMonthlyReports(year: Int): Flow<List<MonthlyReport>> = callbackFlow {
          _balanceReportsCollection
             .whereEqualTo("year", year)
@@ -24,7 +26,7 @@ class BalanceReportsRepository {
                         .collection("monthly_reports")
                         .get()
                         .addOnSuccessListener { monthlyReportsSnapshot ->
-                            val monthlyReports = monthlyReportsSnapshot.toObjects(MonthlyReport::class.java)
+                            monthlyReports = monthlyReportsSnapshot.toObjects(MonthlyReport::class.java)
                             trySend(monthlyReports)
                         }
                         .addOnFailureListener { exception ->

@@ -42,7 +42,7 @@ import me.looma.ui.DataState
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssetForecastsScreen(
-    onClick: () -> Unit,
+    onClick: (Int, Int) -> Unit,
     assetForecastsViewModel: AssetForecastsViewModel = hiltViewModel()
 ) {
     val uiState by assetForecastsViewModel.uiStateFlow.collectAsState()
@@ -57,7 +57,7 @@ fun AssetForecastsScreen(
         topBar = {
             TopAppBar(
                 modifier = Modifier.padding(start = 16.dp),
-                title = { Text(stringResource(R.string.asset_forecasts_title)) }
+                title = { Text(stringResource(R.string.asset_forecasts)) }
             )
         },
         content = { innerPadding ->
@@ -117,7 +117,9 @@ fun AssetForecastsScreen(
 
                                             ) {
                                                 Text(text = getMonthName(monthlyReport.month))
-                                                Button(onClick = onClick) { Text(stringResource(R.string.expand)) }
+                                                Button(onClick = { onClick(uiState.years[selectedTabIndex], monthlyReport.month) }) {
+                                                    Text(stringResource(R.string.expand))
+                                                }
                                             }
                                             Text(
                                                 text = "${monthlyReport.actualBalance}",

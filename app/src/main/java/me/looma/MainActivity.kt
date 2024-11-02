@@ -9,15 +9,17 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import me.looma.ui.screens.assetforecasts.AssetForecastsScreen
 import me.looma.ui.screens.expenditures.ExpendituresScreen
 import me.looma.ui.screens.incomes.IncomesScreen
 import me.looma.ui.screens.investments.InvestmentsScreen
 import me.looma.ui.screens.monthlyreport.MonthlyReportScreen
-import me.looma.ui.theme.PersonalFinanceTheme
+import me.looma.ui.theme.LoomaTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,15 +28,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PersonalFinanceTheme {
-                PersonalFinanceApp()
+            LoomaTheme {
+                LoomaApp()
             }
         }
     }
 }
 
 @Composable
-fun PersonalFinanceApp() {
+fun LoomaApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AssetForecasts.route) {
         composable(
@@ -42,14 +44,26 @@ fun PersonalFinanceApp() {
             enterTransition = { EnterTransition.None },
             exitTransition = { ExitTransition.None }
         ) {
-            AssetForecastsScreen(onClick = { navController.navigate(MonthlyReport.route) })
+            AssetForecastsScreen(onClick = { year: Int, month: Int ->
+                navController.navigate("${MonthlyReport.route}/$year/$month")
+            })
         }
         composable(
-            route = MonthlyReport.route,
+            route = "${MonthlyReport.route}/{year}/{month}",
+            arguments = listOf(
+                navArgument("year") { type = NavType.IntType },
+                navArgument("month") { type = NavType.IntType }
+            ),
             enterTransition = { slideInHorizontally() },
             exitTransition = { slideOutHorizontally() }
-        ) {
-            MonthlyReportScreen(onNavigationIconClick = { navController.popBackStack() })
+        ) { backStackEntry ->
+            val year =  backStackEntry.arguments!!.getInt("year")
+            val month = backStackEntry.arguments!!.getInt("month")
+            MonthlyReportScreen(
+                year = year,
+                month = month,
+                onNavigationIconClick = { navController.popBackStack() }
+            )
         }
         composable(
             route = Incomes.route,
