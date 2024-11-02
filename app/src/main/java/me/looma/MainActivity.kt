@@ -4,6 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -33,10 +37,40 @@ class MainActivity : ComponentActivity() {
 fun PersonalFinanceApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AssetForecasts.route) {
-        composable(route = AssetForecasts.route) { AssetForecastsScreen(onClick = { navController.navigate(MonthlyReport.route) }) }
-        composable(route = MonthlyReport.route) { MonthlyReportScreen() }
-        composable(route = Incomes.route) { IncomesScreen() }
-        composable(route = Investments.route) { InvestmentsScreen() }
-        composable(route = Expenditures.route) { ExpendituresScreen() }
+        composable(
+            route = AssetForecasts.route,
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None }
+        ) {
+            AssetForecastsScreen(onClick = { navController.navigate(MonthlyReport.route) })
+        }
+        composable(
+            route = MonthlyReport.route,
+            enterTransition = { slideInHorizontally() },
+            exitTransition = { slideOutHorizontally() }
+        ) {
+            MonthlyReportScreen(onNavigationIconClick = { navController.popBackStack() })
+        }
+        composable(
+            route = Incomes.route,
+            enterTransition = { slideInHorizontally() },
+            exitTransition = { slideOutHorizontally() }
+        ) {
+            IncomesScreen()
+        }
+        composable(
+            route = Investments.route,
+            enterTransition = { slideInHorizontally() },
+            exitTransition = { slideOutHorizontally() }
+        ) {
+            InvestmentsScreen()
+        }
+        composable(
+            route = Expenditures.route,
+            enterTransition = { slideInHorizontally() },
+            exitTransition = { slideOutHorizontally() }
+        ) {
+            ExpendituresScreen()
+        }
     }
 }

@@ -117,7 +117,7 @@ fun AssetForecastsScreen(
 
                                             ) {
                                                 Text(text = getMonthName(monthlyReport.month))
-                                                Button(onClick = {}) { Text(stringResource(R.string.expand)) }
+                                                Button(onClick = onClick) { Text(stringResource(R.string.expand)) }
                                             }
                                             Text(
                                                 text = "${monthlyReport.actualBalance}",
